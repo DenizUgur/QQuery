@@ -1,8 +1,6 @@
   import os from 'os'
 
-  $(document).ready(function () {
-    $('#modal1').modal('open');
-  });
+//BLANK
 
   export default {
     data() {
