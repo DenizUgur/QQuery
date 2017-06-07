@@ -6,6 +6,8 @@ import Router from 'vue-router'
 import App from './App'
 import routes from './routes'
 
+require('material-design-lite/material.min.css');
+require('material-design-lite/material.min.js');
 require('materialize-css/dist/css/materialize.css');
 require('materialize-css/dist/js/materialize.js');
 require('materialize-css/js/init.js');
