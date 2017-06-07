@@ -1,14 +1,14 @@
 <template>
   <div>
-    <nav class="nav-extended indigo lighten-2 titlebar">
+    <nav class="nav-extended teal darken-1 titlebar">
       <div class="nav-wrapper">
-        <a href="#" class="brand-logo">QQuery</a>
+        <a href="#" class="brand-logo center">QQuery</a>
       </div>
       <div class="nav-content row">
         <ul class="tabs tabs-transparent">
-          <li class="tab col s4"><a href="#second">Database</a></li>
-          <li class="tab col s4"><a class="active" href="#main" onclick="$('.fixed-action-btn.toolbar').openToolbar();">Main</a></li>
-          <li class="tab col s4"><a href="#third">Collapsible</a></li>
+          <li class="tab col s4"><a class="waves-effect" href="#second">Database</a></li>
+          <li class="tab col s4"><a class="waves-effect active" href="#main" onclick="$('.fixed-action-btn.toolbar').openToolbar();">Home</a></li>
+          <li class="tab col s4"><a class="waves-effect" href="#third">Create</a></li>
         </ul>
       </div>
     </nav>
@@ -17,8 +17,8 @@
       <versions></versions>
       <links></links>
     </div>
-    <div id="second" class="row center-align container">
-      <database class="col m6 offset-m3 hoverable"></database>
+    <div id="second">
+      <database></database>
     </div>
     <div id="third" class="col s12">
       <div class="center-align container">
@@ -53,6 +53,7 @@
   $(document).ready(function () {
     $('ul.tabs').tabs();
     $('.collapsible').collapsible();
+    $('.fixed-action-btn.toolbar').openToolbar();
 
     $(".fixed-action-btn.toolbar > a").click(function () {
       $('ul.tabs').tabs('select_tab', 'main');

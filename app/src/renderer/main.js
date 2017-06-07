@@ -11,6 +11,8 @@ require('material-design-lite/material.min.js');
 require('materialize-css/dist/css/materialize.css');
 require('materialize-css/dist/js/materialize.js');
 require('materialize-css/js/init.js');
+require('chartist/chartist.min.js');
+require('chartist/chartist.min.css');
 
 Vue.use(Electron)
 Vue.use(Resource)
