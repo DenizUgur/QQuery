@@ -1,19 +1,24 @@
 'use strict'
 
-import { app, BrowserWindow } from 'electron'
+import {
+  app,
+  BrowserWindow
+} from 'electron'
 
 let mainWindow
-const winURL = process.env.NODE_ENV === 'development'
-  ? `http://localhost:${require('../../../config').port}`
-  : `file://${__dirname}/index.html`
+const winURL = process.env.NODE_ENV === 'development' ?
+  `http://localhost:${require('../../../config').port}` :
+  `file://${__dirname}/index.html`
 
-function createWindow () {
+function createWindow() {
   /**
    * Initial window options
    */
   mainWindow = new BrowserWindow({
-    height: 670,
+    height: 750,
     width: 990,
+    minHeight: 750,
+    minWidth: 990,
     titleBarStyle: 'hidden'
   })
 

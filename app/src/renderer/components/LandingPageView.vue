@@ -2,18 +2,18 @@
   <div>
     <nav class="nav-extended teal darken-1 titlebar">
       <div class="nav-wrapper">
-        <a href="#" class="brand-logo center">QQuery</a>
+        <a href="#" class="brand-logo center">DeHa</a>
       </div>
       <div class="nav-content row">
         <ul class="tabs tabs-transparent">
           <li class="tab col s4"><a class="waves-effect" href="#second">Database</a></li>
-          <li class="tab col s4"><a class="waves-effect active" href="#main" onclick="$('.fixed-action-btn.toolbar').openToolbar();">Home</a></li>
+          <li class="tab col s4"><a class="waves-effect active" href="#main" v-on:click="openToolbar">Home</a></li>
           <li class="tab col s4"><a class="waves-effect" href="#third">Create</a></li>
         </ul>
       </div>
     </nav>
     <div id="main" class="col s12 center-align container">
-      <current-page></current-page>
+      <title-logo></title-logo>
       <versions></versions>
       <links></links>
     </div>
@@ -21,8 +21,8 @@
       <database></database>
     </div>
     <div id="third" class="col s12">
-      <div class="center-align container">
-        <collapsible></collapsible>
+      <div class="center-align">
+        <create></create>
       </div>
     </div>
     <action-bar></action-bar>
@@ -30,24 +30,30 @@
 </template>
 
 <script>
-  import CurrentPage from './LandingPageView/CurrentPage'
+  import TitleLogo from './LandingPageView/TitleLogo'
   import Links from './LandingPageView/Links'
   import Versions from './LandingPageView/Versions'
   import ActionBar from './LandingPageView/ActionBar'
-  import Collapsible from './LandingPageView/Collapsible'
+  import Create from './LandingPageView/Create'
   import Database from './LandingPageView/Database'
 
   export default {
 
     components: {
-      CurrentPage,
+      TitleLogo,
       Links,
       Versions,
       ActionBar,
-      Collapsible,
+      Create,
       Database
     },
-    name: 'landing-page'
+    name: 'landing-page',
+
+    methods: {
+      openToolbar: function (e) {
+        $('.fixed-action-btn.toolbar').openToolbar();
+      }
+    }
   }
 
   $(document).ready(function () {
@@ -59,7 +65,6 @@
       $('ul.tabs').tabs('select_tab', 'main');
       $('.fixed-action-btn.toolbar').openToolbar();
     });
-
   });
 </script>
 

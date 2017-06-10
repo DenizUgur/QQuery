@@ -1,38 +1,33 @@
 <template>
-  <div class="row center-align">
-    <div class="col s3 left-align">
-      <div id="chart1" class="ct-chart ct-perfect-fourth"></div>
+  <div class="row">
+    <div class="row card">
+      <div id="chart1" class="col s3 ct-chart"></div>
+      <div class="col s3"></div>
+      <div id="chart2" class="col s3 offset-s6 ct-chart"></div>
     </div>
-    <div class="col s6">
-      <table class="mdl-data-table mdl-js-data-table mdl-shadow--2dp hoverable">
-        <thead>
-          <tr>
-            <th class="mdl-data-table__cell--non-numeric">Name</th>
-            <th>Type</th>
-            <th>Level</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr>
-            <td class="mdl-data-table__cell--non-numeric">{{sample}}</td>
-            <td>Functions</td>
-            <td><i class="material-icons">filter_5</i></td>
-          </tr>
-          <tr>
-            <td class="mdl-data-table__cell--non-numeric">2016 Mid</td>
-            <td>Problems</td>
-            <td><i class="material-icons">filter_3</i></td>
-          </tr>
-          <tr>
-            <td class="mdl-data-table__cell--non-numeric">2012 Easy</td>
-            <td>Square</td>
-            <td><i class="material-icons">filter_1</i></td>
-          </tr>
-        </tbody>
-      </table>
-    </div>
-    <div class="col s3 right-align">
-      <div id="chart2" class="ct-chart ct-perfect-fourth"></div>
+    <div class="col s12">
+      <div class="row col s6">
+        <ul class="collapsible popout" data-collapsible="accordion">
+          <li>
+            <div class="collapsible-header">Current database information</div>
+            <div class="collapsible-body">
+              <span>Current question count, Pie's (Category, Level)</span>
+            </div>
+          </li>
+          <li>
+            <div class="collapsible-header">User generated templates</div>
+            <div class="collapsible-body">
+              <span>'Tabs in Cards' Recents tab and Templates tab</span>
+            </div>
+          </li>
+          <li>
+            <div class="collapsible-header">Search database</div>
+            <div class="collapsible-body">
+              <span>Will be located at right of 'Tabs in Cards'. Beautiful Search Panel with only necessary buttons.</span>
+            </div>
+          </li>
+        </ul>
+      </div>
     </div>
   </div>
 </template>
