@@ -14,8 +14,6 @@
     </nav>
     <div id="main" class="col s12 center-align container">
       <title-logo></title-logo>
-      <versions></versions>
-      <links></links>
     </div>
     <div id="second">
       <database></database>
@@ -30,24 +28,20 @@
 </template>
 
 <script>
-  import TitleLogo from './LandingPageView/TitleLogo'
-  import Links from './LandingPageView/Links'
-  import Versions from './LandingPageView/Versions'
-  import ActionBar from './LandingPageView/ActionBar'
-  import Create from './LandingPageView/Create'
-  import Database from './LandingPageView/Database'
+  import TitleLogo from './Main/TitleLogo'
+  import ActionBar from './Main/ActionBar'
+  import Create from './Main/Create/Create'
+  import Database from './Main/Database'
 
   export default {
 
     components: {
       TitleLogo,
-      Links,
-      Versions,
       ActionBar,
       Create,
       Database
     },
-    name: 'landing-page',
+    name: 'main',
 
     methods: {
       openToolbar: function (e) {
