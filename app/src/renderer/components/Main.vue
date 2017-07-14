@@ -72,4 +72,5 @@
     -webkit-user-select: none;
     -webkit-app-region: drag;
   }
+
 </style>

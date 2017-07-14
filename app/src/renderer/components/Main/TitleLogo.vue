@@ -1,10 +1,10 @@
 <template>
   <div>
     <div class="title">DeHa</div>
-    <p>
+    <p class="dev">
       You are using electron v{{ versions['atom-shell'] }} with node v{{ versions.node }} on the {{ platform }} platform.
     </p>
-    <ul>
+    <ul class="dev">
       <li><a href="https://simulatedgreg.gitbooks.io/electron-vue/content/index.html">documentation</a></li> |
       <li><a href="http://electron.atom.io/">electron</a></li> |
       <li><a href="http://vuejs.org/">vue.js</a></li>

@@ -6,7 +6,7 @@
       <div id="chart2" class="col s3 offset-s6 ct-chart"></div>
     </div>
     <div class="col s12">
-      <div class="row col s6">
+      <div class="row col s6 dev">
         <ul class="collapsible popout" data-collapsible="accordion">
           <li>
             <div class="collapsible-header">Current database information</div>
