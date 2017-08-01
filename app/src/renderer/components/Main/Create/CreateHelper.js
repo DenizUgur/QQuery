@@ -1,6 +1,6 @@
 import GsForm from './Flow/GsForm'
 import MetaForm from './Flow/MetaForm'
-import Loader from './Flow/Loader'
+import Parameters from './Flow/Parameters'
 
 var steps = ["Getting Started", "Project Details", "Parameters", "Overview"];
 /*
@@ -37,6 +37,46 @@ _-_ DEPLOYMENT
 $(document).ready(function () {
     var init = true;
 
+    require('electron').ipcRenderer.on('synchronous-message', (event, arg) => {
+        openCurtain();
+    });
+
+    $(".title").on("click", openCurtain);
+
+    $("#dev-t").on("click", function () {
+        console.log($.fn.dataTable.tables());
+        try {
+            console.warn($(document).triggerHandler("getSelected"));
+        } catch (e) {}
+    });
+
+    function openCurtain() {
+        $(".titlebar").animate({
+            "height": "122px"
+        }, {
+            duration: 500,
+            queue: false
+        });
+
+        $(".title").animate({
+            "font-size": "80px"
+        }, {
+            duration: 200,
+            queue: false,
+            complete: function () {
+                var calcPadding = ($(".titlebar").height() - $(".title").outerHeight()) / 2;
+                $(".title").animate({
+                    "padding-top": calcPadding
+                }, "fast", function () {
+                    $(".navCreate").slideDown();
+                });
+            }
+        });
+        $(".toolCreate").slideDown(500, function () {
+            $(document).trigger("calcSize");
+        });
+    }
+
     $("#next").on('click', function () {
         nextStep(true);
     });
@@ -64,26 +104,36 @@ $(document).ready(function () {
     $("#start").on('click', function (e) {
         if (init) {
             nextStep(true);
-            $('.fixed-action-btn').fadeOut(200, function (e) {
-                console.log('hidden');
-            });
+            $('.fixed-action-btn').fadeOut(200);
             $("#start").toggleClass('red darken-1').html('cancel<i class="material-icons right">cancel</i>').addClass('pulse');
 
-            $('.nav-content > .tabs').css({
-                "visibility": "hidden"
+            $(".title").animate({
+                "font-size": "48px"
+            }, 200, function () {
+                var titleAreaSize = $(".titlebar").height() - $(".navCreate").height();
+                var newPadding = (titleAreaSize - $(".title").outerHeight()) / 2;
+                $(".title").animate({
+                    "padding-top": newPadding
+                }, "fast", function () {
+                    $(".navCreate").slideDown();
+                });
             });
-            $('.navCreate, #next, #back').removeClass('hide');
         } else {
             clearSteps();
-            $('.fixed-action-btn').fadeIn(200, function (e) {
-                console.log('shown');
-            });
+            $('.fixed-action-btn').fadeIn(200);
             $("#start").toggleClass('red darken-1', 'teal').html('start<i class="material-icons left">send</i>').removeClass('pulse');
 
-            $('.nav-content > .tabs').css({
-                "visibility": ""
+            $(".title").animate({
+                "font-size": "80px"
+            }, 200, function () {
+                $(this).animate({
+                    "padding-top": (($(".titlebar").height() - $(".title").outerHeight()) / 2)
+                }, "fast");
+                $(".navCreate").fadeOut("fast", function () {
+                    $('.navCreate > .nav-wrapper').children().remove();
+                });
+                $("#next, #back").addClass("hide");
             });
-            $('.navCreate, #next, #back').addClass('hide');
         }
         init = !init;
     });
@@ -100,7 +150,6 @@ function clearSteps() {
     $(".View").children().each(function (index, item) {
         if (index > 0) $(item).addClass('hide');
     });
-    $('.navCreate > .nav-wrapper').children().remove();
     i = -1;
 }
 
@@ -108,7 +157,7 @@ function changeStep(index) {
     $(".View").children().not($('.hide')).each(function (index, item) {
         $(item).addClass('hide');
     });
-    $(`#${index}`).removeClass('hide');
+    $(`.View > div:eq(${index + 1})`).removeClass("hide");
 }
 
 function nextStep(fwd) {
@@ -131,9 +180,9 @@ function nextStep(fwd) {
 
     var curr = $('.navCreate > .nav-wrapper').children().last().text();
     if (curr === steps[0]) {
-        $("#back").addClass("disabled");
+        $("#back, #next").addClass("hide");
     } else {
-        $("#back").removeClass("disabled");
+        $("#back, #next").removeClass("hide");
     }
 
     if (curr === steps[3]) {
@@ -141,13 +190,22 @@ function nextStep(fwd) {
     } else {
         $("#next").removeClass("disabled");
     }
+
+    if (curr === steps[1]) {
+        if (!$("form")[0].checkValidity()) {
+            $("#next").addClass("disabled");
+            $("#project_name").focus();
+        } else {
+            $("#next").removeClass("disabled");
+        }
+    }
 }
 
 export default {
     components: {
         GsForm,
         MetaForm,
-        Loader
+        Parameters
     },
     name: 'Create'
 }

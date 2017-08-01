@@ -1,68 +1,91 @@
+import DataTable from '../../DataTable.vue';
+
 $(document).ready(function () {
 
     var h = $(".module-body").height() - $(".toolCreate").height();
-
-    $(".tile").css("height", h / 2);
-
-    $(".cEvent").css({
-        height: h,
-        bottom: $(".toolCreate").height()
+    $(document).on("calcSize", function () {
+        $(".content-item").css({
+            "height": $("body").height() - ($(".titlebar").height() + $(".toolCreate").height()),
+            "bottom": $(".toolCreate").height()
+        });
+        return false;
     });
 
-    var i = 0;
-    while (i < 4) {
-        $(".cEvent").append($("<a>", {
-            "class": "col s6 cTile",
-            "href": "#!",
-            "height": h / 2
-        }));
-        i++;
-    }
+    $(".tiles, img").css({
+        "bottom": $(".toolCreate").height(),
+        "height": h
+    });
+    $("img").attr("src", `https://unsplash.it/${$(".tiles").width()}/${h}/?blur`);
 
-    var elI;
-    $(".cEvent").children().on('click', function (e) {
-        e.preventDefault();
-        elI = $(this).index();
-        var $el = $(".tile:eq("+elI+")");
-        $(".tile").css({
-            "position": "absolute",
-            "top": "0px"
-        });
-        $el.css({
-            "z-index": "-2"
-        });
-        $el.animate({
-            height: h,
-            width: "100%",
-        }, 1000, function () {
+    var tileBtn = $('li.tiles-tile');
+    var allContent = $('li.content-item');
+    var contentWrap = $('.content-wrap');
 
+    tileBtn.on('click touchstart', function () {
+        var self = $(this);
+        var match = self.attr('data-tile');
+        var allContent = $('li.content-item');
+        var content = $('li#' + match);
+
+        contentWrap.css({
+            'transition-delay': '.35s'
         });
+
+        if (match === "4") {
+            $("#next").trigger("click");
+            return false;
+        } else {
+            self.toggleClass('active');
+            content.toggleClass('active');
+            $(document).trigger("tileActive");
+        }
+        return false;
     });
 
-    $("#dev_cancel").on("click", function () {
-        var $el = $(".tile:eq("+elI+")");
-        $(".tile").css({
-            "position": "relative",
-            "top": "-20px"
-        });
-        $el.css({
-            "z-index": "-3"
-        });
-        $el.animate({
-            height: h / 2,
-            width: "50%",
-        }, 1000, function () {
-
-        });
+    $(".toolCreate").on('click touchstart', function () {
+        if (allContent.hasClass('active') && tileBtn.hasClass('active')) {
+            allContent.removeClass('active');
+            setTimeout(function () {
+                tileBtn.removeClass('active');
+            }, 400);
+            contentWrap.css({
+                'transition-delay': '.0s'
+            });
+            $(document).trigger("tableDestroy");
+        }
     });
 
-     $(document).keyup(function (e) {
-        if (e.keyCode === 8) console.log(e.keyCode);
-        if (e.keyCode === 27) console.log(e.keyCode);
+    $("#search").keyup(function () {
+        if ($(this).val() === "") {
+            $(".tiles > li").last().removeClass("hide");
+        } else {
+            $(".tiles > li").last().addClass("hide");
+        }
     });
 });
 
+export default {
+    components: {
+        DataTable
+    },
+    name: 'GsHelper'
+}
+
+/* **************************************
+
+https://codepen.io/arjancodes/full/GgMejV/
+http://www.jqueryscript.net/animation/Expanding-Fullscreen-Tiles-with-jQuery-CSS3.html
+
+   ************************************** */
+
 /*
+                    *************
+
+            https://codepen.io/heiswayi/pen/VvpmaE
+            https://codepen.io/heiswayi/full/VvpmaE/
+            https://datatables.net/download/npm
+
+                    *************
     Beautiful fluid animations that explain template categories that will transform into a list
 
     https://codepen.io/wbarlow/pen/NqLWXJ/ {{@Deprecated}}

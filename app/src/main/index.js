@@ -2,7 +2,8 @@
 
 import {
   app,
-  BrowserWindow
+  BrowserWindow,
+  ipcMain
 } from 'electron'
 
 let mainWindow
@@ -15,11 +16,17 @@ function createWindow() {
    * Initial window options
    */
   mainWindow = new BrowserWindow({
-    height: 750,
     width: 990,
-    minHeight: 750,
-    minWidth: 990,
-    titleBarStyle: 'hidden'
+    height: 750,
+    resizable: false,
+    center: true,
+    titleBarStyle: 'hidden',
+    show: false
+  })
+
+  mainWindow.once('ready-to-show', () => {
+    mainWindow.show()
+    mainWindow.webContents.send('synchronous-message', true)
   })
 
   mainWindow.loadURL(winURL)

@@ -1,6 +1,6 @@
 <template>
     <div>
-        <nav class="navCreate teal darken-1 z-depth-0 hide">
+        <nav class="navCreate teal">
             <div class="nav-wrapper valign-wrapper">
                 <!-- Dynamic Content-->
             </div>
@@ -8,18 +8,11 @@
         <div class="View">
             <!-- Dynamic Content -->
             <div class="container">
-                <ul class="collapsible popout" data-collapsible="accordion">
-                    <li>
-                        <div class="collapsible-header dev">PDF Creation Page</div>
-                        <div class="collapsible-body">
-                            <span>Not yet designed. But will include bottom toolbar with stepper (to complete necessary information for PDF)[stepper could replace tabs if proceeded with a button(this button could be located in the toolbar that will never disable itself all the way until PDF is created and served :)) on screen?]</span>
-                        </div>
-                    </li>
-                </ul>
+                <h1>PDF CREATION PAGE</h1>
             </div>
-            <gs-form id="0"></gs-form>
-            <meta-form id="1"></meta-form>
-            <loader id="2"></loader>
+            <gs-form></gs-form>
+            <meta-form></meta-form>
+            <parameters></parameters>
         </div>
         <div class="toolCreate">
             <div class="content teal darken-1 left-align">
@@ -31,13 +24,13 @@
 
                 <a id="back" class="btn orange hide"><i class="material-icons">replay</i></a>
                 <a id="next" class="btn green hide"><i class="material-icons">play_arrow</i></a>
-                <a id="dev_cancel" class="btn green dev"><i class="material-icons">cancel</i></a>
+                 <a id="dev-t" class="btn dev"><i class="material-icons">list</i></a>
 
                 <!-- Dropdown Structure -->
                 <ul id='pages' class='dropdown-content'>
                     <li><a>GStarted</a></li>
                     <li><a>Meta</a></li>
-                    <li><a>Loader</a></li>
+                    <li><a>Parameters</a></li>
                 </ul>
             </div>
         </div>
@@ -57,6 +50,10 @@
         width: 100%;
         height: 48px;
         padding-left: 20px;
+        z-index: 99;
+        box-shadow: unset;
+        top: 64px;
+        display: none;
     }
 
     #start {
@@ -71,16 +68,12 @@
         position: absolute;
         bottom: 0;
         width: 100%;
+        z-index: 99;
         box-shadow: 0 -2px 2px 0 rgba(0, 0, 0, 0.14), 0 -1px 5px 0 rgba(0, 0, 0, 0.12), 0 -3px 1px -2px rgba(0, 0, 0, 0.2);
     }
 
     .toolCreate .content {
         padding: 10px;
-    }
-
-    .template-card {
-        position: absolute;
-        bottom: 15%;
     }
 
     .toolCreate .content>* {

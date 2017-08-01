@@ -1,65 +1,32 @@
 <template>
   <div>
-    <nav class="nav-extended teal darken-1 titlebar">
-      <div class="nav-wrapper">
-        <a href="#" class="brand-logo center">DeHa</a>
-      </div>
-      <div class="nav-content row">
-        <ul class="tabs tabs-transparent">
-          <li class="tab col s4"><a class="waves-effect" href="#second">Database</a></li>
-          <li class="tab col s4"><a class="waves-effect active" href="#main" v-on:click="openToolbar">Home</a></li>
-          <li class="tab col s4"><a class="waves-effect" href="#third">Create</a></li>
-        </ul>
-      </div>
+    <nav class="nav-extended teal titlebar">
+      <title-logo class="logo"></title-logo>
     </nav>
-    <div id="main" class="col s12 center-align container">
-      <title-logo></title-logo>
-    </div>
-    <div id="second">
-      <database></database>
-    </div>
-    <div id="third" class="col s12">
+    <div class="col s12">
       <div class="center-align">
         <create></create>
       </div>
     </div>
-    <action-bar></action-bar>
   </div>
 </template>
 
 <script>
   import TitleLogo from './Main/TitleLogo'
-  import ActionBar from './Main/ActionBar'
   import Create from './Main/Create/Create'
-  import Database from './Main/Database'
+
+  $(document).ready(function () {
+    $(".toolCreate").hide();
+  });
 
   export default {
 
     components: {
       TitleLogo,
-      ActionBar,
-      Create,
-      Database
+      Create
     },
-    name: 'main',
-
-    methods: {
-      openToolbar: function (e) {
-        $('.fixed-action-btn.toolbar').openToolbar();
-      }
-    }
+    name: 'main'
   }
-
-  $(document).ready(function () {
-    $('ul.tabs').tabs();
-    $('.collapsible').collapsible();
-    $('.fixed-action-btn.toolbar').openToolbar();
-
-    $(".fixed-action-btn.toolbar > a").click(function () {
-      $('ul.tabs').tabs('select_tab', 'main');
-      $('.fixed-action-btn.toolbar').openToolbar();
-    });
-  });
 </script>
 
 <style scoped>
@@ -73,4 +40,13 @@
     -webkit-app-region: drag;
   }
 
+  .nav-extended {
+    height: 990px;
+  }
+
+  .logo {
+    position: absolute;
+    z-index: 100;
+    width: 100%;
+  }
 </style>
