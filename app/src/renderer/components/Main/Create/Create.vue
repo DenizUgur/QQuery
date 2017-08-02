@@ -24,7 +24,6 @@
 
                 <a id="back" class="btn orange hide"><i class="material-icons">replay</i></a>
                 <a id="next" class="btn green hide"><i class="material-icons">play_arrow</i></a>
-                 <a id="dev-t" class="btn dev"><i class="material-icons">list</i></a>
 
                 <!-- Dropdown Structure -->
                 <ul id='pages' class='dropdown-content'>

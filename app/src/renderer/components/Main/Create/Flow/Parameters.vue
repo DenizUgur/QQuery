@@ -1,6 +1,6 @@
 <template>
   <div>
-    <div class="box beta">
+    <div class="box">
       <data-table id="genres"></data-table>
       <div class="row" id="level">
         <h1>Choose a <i>Level</i></h1>
@@ -42,7 +42,7 @@
         </div>
       </div>
     </div>
-    <div class="progress-layout beta">
+    <div class="progress-layout">
       <div class="container">
         <div class="mini-step card-panel red accent-4">
           <span class="white-text">Genre's</span>
@@ -95,7 +95,7 @@
             </br>
             </br>
             <p class="range-field">
-              <input type="range" id="rarity" step="25" min="0" max="100" value="0"/>
+              <input type="range" id="rarity" step="25" min="25" max="100" value="25"/>
             </p>
           </div>
         </div>
@@ -183,7 +183,6 @@
 
   [type="checkbox"]:checked+label:before {
     border-right: 2px solid rgb(237, 193, 34);
-    /* You need to change the colour here */
     border-bottom: 2px solid rgb(237, 193, 34);
   }
 

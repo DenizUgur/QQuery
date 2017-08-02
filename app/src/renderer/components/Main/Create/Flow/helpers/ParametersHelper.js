@@ -26,6 +26,7 @@ $(document).ready(function () {
     $(".pNext").on("click", function () {
         switch (stepIndex) {
             case 0:
+                $("#next, #back").addClass("disabled");
                 $(document).trigger("tableDestroy");
                 initiateTable();
                 initTable = true;
@@ -65,6 +66,7 @@ $(document).ready(function () {
                 console.clear();
                 console.log(poolAlgo.listNames());
                 $(".pNext").addClass("disabled");
+                $("#next, #back").removeClass("disabled");
             default:
                 stepIndex = 0;
         }

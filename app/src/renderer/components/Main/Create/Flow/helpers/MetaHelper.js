@@ -95,8 +95,8 @@ $(document).ready(function () {
 
     function changeText($el, ctnt) {
         var theLetters = "01"; //You can customize what letters it will cycle through
-        var speed = 30; // ms per frame
-        var increment = 8; // frames per step. Must be >2
+        var speed = 15; // ms per frame
+        var increment = 4; // frames per step. Must be >2
 
         var clen = 0;
         try {
@@ -141,23 +141,3 @@ $(document).ready(function () {
         }
     }
 });
-
-/*
-
-https://codepen.io/steveg3003/pen/ALXbYN
-
-http://materializecss.com/forms.html#autocomplete
-
-function showValues() {
-    var fields = $( ":input" ).serializeArray();
-    $( "#results" ).empty();
-    jQuery.each( fields, function( i, field ) {
-      $( "#results" ).append( field.value + " " );
-    });
-  }
- 
-  $( ":checkbox, :radio" ).click( showValues );
-  $( "select" ).change( showValues );
-  showValues();
-
-*/

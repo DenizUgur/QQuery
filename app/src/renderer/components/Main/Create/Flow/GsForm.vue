@@ -50,11 +50,16 @@
         <div id="confirm-modal" class="modal">
             <div class="modal-content">
                 <h4>Modal Header</h4>
-                <p>A bunch of text</p>
+                <div class="row">
+                    <div class="col s6" style="width:200px; height:200px;">
+                        <canvas id="canvasGraph"></canvas>
+                    </div>
+                    <p class="col s6 push-s1">A bunch of text</p>
+                </div>
             </div>
             <div class="modal-footer">
-                <a href="#!" class="modal-action modal-close waves-effect waves-green btn-flat">Continue</a>
-                <a href="#!" class="modal-action modal-close waves-effect waves-red btn-flat">Cancel</a>
+                <a id="modal-continue" href="#!" class="modal-action modal-close waves-effect waves-green btn-flat">Continue</a>
+                <a id="modal-cancel" href="#!" class="modal-action modal-close waves-effect waves-red btn-flat">Cancel</a>
             </div>
         </div>
     </div>
@@ -82,6 +87,10 @@
         bottom: 0;
         width: 100%;
         height: 50%;
+    }
+
+    .modal-content {
+        padding-bottom: 0;
     }
 
     .title-gs {

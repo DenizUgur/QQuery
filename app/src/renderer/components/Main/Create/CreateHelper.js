@@ -3,36 +3,6 @@ import MetaForm from './Flow/MetaForm'
 import Parameters from './Flow/Parameters'
 
 var steps = ["Getting Started", "Project Details", "Parameters", "Overview"];
-/*
-- Getting Started
-  This screen will show a user generated or preset templates which can speed up the Flow.
-
-- Project Details 
-  Project
-    * Name
-    * Description
-    * Disturbition
-      * How many people will be taking this PDF.
-      * Will everybody get the same PDF or with 'same' parameters?
-    * Answer Sheet option
-      * Either embed it to the end of every copy or export it as single sheet.
-
-- Parameters
-  Question distribution
-    * How many questions?
-    * Question genres disturbition [A big dynamic pie chart]
-    * Inculde favourite Questions (How do we implement it?)
-
-- Overview
-    * Summary of the all steps above.
-    * And DEPLOYMENT
-
-_-_ DEPLOYMENT
- * Server will handle the rest
- * Beautiful loading screen (THIS IS IMPORTANT)
- * Add some fancy animations while waiting to finish.
- * And lastly print screen where you can either print it directly from application or save PDF's in a folder
-*/
 
 $(document).ready(function () {
     var init = true;
@@ -42,13 +12,6 @@ $(document).ready(function () {
     });
 
     $(".title").on("click", openCurtain);
-
-    $("#dev-t").on("click", function () {
-        console.log($.fn.dataTable.tables());
-        try {
-            console.warn($(document).triggerHandler("getSelected"));
-        } catch (e) {}
-    });
 
     function openCurtain() {
         $(".titlebar").animate({
@@ -79,10 +42,12 @@ $(document).ready(function () {
 
     $("#next").on('click', function () {
         nextStep(true);
+        return false;
     });
 
     $("#back").on('click', function () {
         nextStep(false);
+        return false;
     });
 
     $(".View").children().each(function (index, item) {

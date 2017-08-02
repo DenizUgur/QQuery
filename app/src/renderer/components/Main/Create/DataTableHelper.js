@@ -1,10 +1,11 @@
 import DataTable from 'datatables.net/js/jquery.dataTables.js'
+import Chart from 'chart.js/dist/Chart.min.js';
 import DataTableSelect from 'datatables.net/js/dataTables.select.min.js'
 
 var JSONs = [
-    "https://api.myjson.com/bins/yefwv",
-    "https://api.myjson.com/bins/im81r",
-    "https://api.myjson.com/bins/15jn67"
+    "https://api.myjson.com/bins/pwt55",
+    "https://api.myjson.com/bins/jd1hl",
+    "https://api.myjson.com/bins/1b1wu1"
 ];
 
 (function (window, document, undefined) {
@@ -136,6 +137,10 @@ var JSONs = [
 
 $(document).ready(function () {
     $('.modal').modal();
+
+    var selectedJSON = {
+        "data": []
+    };
     var prep, store;
 
     $(".tiles").children().on("click", function () {
@@ -159,6 +164,9 @@ $(document).ready(function () {
             prep.destroyInit();
             store = null;
             prep.selectedJSON = null;
+            selectedJSON = {
+                "data": []
+            };
         } catch (e) {}
         return false;
     });
@@ -203,6 +211,7 @@ $(document).ready(function () {
                 prep.initDetails("Selected", "desc_selected");
             }
         }
+        return false;
     });
 
     $('.search-toggle').click(function () {
@@ -212,10 +221,6 @@ $(document).ready(function () {
         } else {
             $('.hiddensearch').slideUp();
         }
-    });
-
-    $(".modal-footer").children().first().on("click", function () {
-        $("#next").trigger("click");
     });
 
     /* Builder Area */
@@ -298,38 +303,84 @@ $(document).ready(function () {
         });
 
         if (this.origin) {
-            tableObj.on('select.dt', function (e, dt, type, index) {
+            tableObj.off("select.dt").on('select.dt', function (e, dt, type, index) {
                 var data = tableObj.rows(index).data().toArray()[0];
                 var modal = $("#confirm-modal > .modal-content");
                 modal.find("h4").text(data[0]);
                 modal.find("p").text(data[1]);
+
+                console.warn(data[5]);
+
+                var ctx = modal.find("canvas");
+                var radarChart = new Chart(ctx, {
+                    type: 'radar',
+                    data: {
+                        labels: ['5', '4', '3', '2', '1'],
+                        datasets: [{
+                            data: data[5],
+                            borderColor: "#BA3946",
+                            backgroundColor: "rgba(199, 96, 107, 0.5)"
+                        }],
+                    },
+                    options: {
+                        responsive: true,
+                        maintainAspectRatio: true,
+                        scale: {
+                            ticks: {
+                                beginAtZero: true,
+                                min: 0,
+                                max: 10,
+                                stepSize: 2,
+                                display: false
+                            }
+                        },
+                        legend: {
+                            display: false
+                        },
+                        tooltips: {
+                            enabled: false
+                        }
+                    }
+                });
+
                 $('#confirm-modal').modal({
                     dismissible: true,
                     opacity: .5,
                     inDuration: 300,
                     outDuration: 200,
-                    startingTop: '30%',
-                    endingTop: '38%',
+                    startingTop: '20%',
+                    endingTop: '28%',
 
                     complete: function () {
-                        $("#project_name").val(data[0]);
-                        $("#desc").val(data[1]);
-
-                        var dI = $("#dOption").find(`option:contains(${data[2]})`).index() + 1;
-                        $("#dOption").val(dI);
-
-                        var pI = $("#pOption").find(`option:contains(${data[3]})`).index() + 1;
-                        $("#pOption").val(pI);
-
-                        var check = (data[4] === "Embed") ? true : false;
-                        $("#aOption").prop("checked", check);
-
-                        $('select').material_select();
-                        Materialize.updateTextFields();
-                        $("input, textarea, select").trigger("change");
-                        prep.destroyInit();
+                        radarChart.destroy();
                     }
                 });
+
+                $("#modal-continue").off("click").on("click", function () {
+                    $("#project_name").val(data[0]);
+                    $("#desc").val(data[1]);
+
+                    var dI = $("#dOption").find(`option:contains(${data[2]})`).index() + 1;
+                    $("#dOption").val(dI);
+
+                    var pI = $("#pOption").find(`option:contains(${data[3]})`).index() + 1;
+                    $("#pOption").val(pI);
+
+                    var check = (data[4] === "Embed") ? true : false;
+                    $("#aOption").prop("checked", check);
+
+                    $('select').material_select();
+                    Materialize.updateTextFields();
+                    $("input, textarea, select").trigger("change");
+
+                    try {
+                        prep.destroyInit();
+                        radarChart.destroy();
+                    } catch (e) {}
+
+                    $("#next, .toolCreate").trigger("click");
+                });
+
                 $('#confirm-modal').modal('open');
             }).on('deselect.dt', function (e, dt, type, index) {
                 $(".selectedItem").addClass("hide");
@@ -337,11 +388,11 @@ $(document).ready(function () {
             });
         } else {
             $(".genre-list").removeClass("hide");
-            var selectedJSON = {
+            selectedJSON = {
                 "data": []
             };
 
-            tableObj.on('select.dt', function (e, dt, type, index) {
+            tableObj.off("select.dt").on('select.dt', function (e, dt, type, index) {
                 var data = tableObj.rows(index).data().toArray()[0];
                 $('#genre-selector').find("h4").text(data[0]);
                 $('#genre-selector').find("p").first().text(data[1]);
@@ -363,7 +414,7 @@ $(document).ready(function () {
                         $(this).find("input[type='checkbox']").each(function () {
                             $(this).prop("checked", false);
                         });
-                        $("#rarity").val(0);
+                        $("#rarity").val(25);
                         if (validate[0]) {
                             $(this).find(".modal-action").text("Done");
                             var rs = selectedJSON["data"][validate[1]][2].split(", ");
@@ -406,9 +457,3 @@ $(document).ready(function () {
 export default {
     name: 'DataTable'
 }
-
-/*
-
-https://datatables.net/extensions/select/examples/api/events.html
-
-*/

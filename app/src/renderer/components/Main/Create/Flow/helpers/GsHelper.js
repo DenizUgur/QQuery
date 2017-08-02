@@ -53,6 +53,7 @@ $(document).ready(function () {
             });
             $(document).trigger("tableDestroy");
         }
+        return false;
     });
 
     $("#search").keyup(function () {
@@ -70,34 +71,3 @@ export default {
     },
     name: 'GsHelper'
 }
-
-/* **************************************
-
-https://codepen.io/arjancodes/full/GgMejV/
-http://www.jqueryscript.net/animation/Expanding-Fullscreen-Tiles-with-jQuery-CSS3.html
-
-   ************************************** */
-
-/*
-                    *************
-
-            https://codepen.io/heiswayi/pen/VvpmaE
-            https://codepen.io/heiswayi/full/VvpmaE/
-            https://datatables.net/download/npm
-
-                    *************
-    Beautiful fluid animations that explain template categories that will transform into a list
-
-    https://codepen.io/wbarlow/pen/NqLWXJ/ {{@Deprecated}}
-
-    https://codepen.io/hone/pen/jERzmd {{!!!! this is the type of fluid action I want make tiles that descripes contents}}
-
-    {{Search result will open the tile and show only the result in tile category color !!!}} {{Also change the search window color according to the first auto-complete result}}
-
-    {{Each tile's opened state will include description about content and minimalist but efficent table that will show the contents}}
-
-    // Codepens
-    https://codepen.io/yusufbkr/pen/JdBxpj (COLOR)
-
-    https://codepen.io/mkurapov/pen/qNQXxz (GRIDS)
-*/

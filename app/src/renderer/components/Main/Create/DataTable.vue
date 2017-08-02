@@ -122,7 +122,6 @@
         display: -webkit-flex;
         display: flex;
         -webkit-flex-direction: row;
-        /* works with row or column */
         flex-direction: row;
         -webkit-align-items: center;
         align-items: center;
@@ -134,7 +133,6 @@
         display: -webkit-flex;
         display: flex;
         -webkit-flex-direction: row;
-        /* works with row or column */
         flex-direction: row;
         -webkit-align-items: center;
         align-items: center;
