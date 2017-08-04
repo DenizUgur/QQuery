@@ -130,7 +130,6 @@ var JSONs = [
                 $(host).find('[data-dt-idx=' + activeEl + ']').focus();
             }
         };
-
     };
     factory(jQuery, jQuery.fn.dataTable);
 })(window, document);
@@ -138,7 +137,7 @@ var JSONs = [
 $(document).ready(function () {
     $('.modal').modal();
 
-    var selectedJSON = {
+    var _selectedJSON = {
         "data": []
     };
     var prep, store;
@@ -164,7 +163,7 @@ $(document).ready(function () {
             prep.destroyInit();
             store = null;
             prep.selectedJSON = null;
-            selectedJSON = {
+            _selectedJSON = {
                 "data": []
             };
         } catch (e) {}
@@ -388,9 +387,7 @@ $(document).ready(function () {
             });
         } else {
             $(".genre-list").removeClass("hide");
-            selectedJSON = {
-                "data": []
-            };
+            //_selectedJSON = {"data": []};
 
             tableObj.off("select.dt").on('select.dt', function (e, dt, type, index) {
                 var data = tableObj.rows(index).data().toArray()[0];
@@ -398,7 +395,7 @@ $(document).ready(function () {
                 $('#genre-selector').find("p").first().text(data[1]);
 
                 var validate = [false, 0];
-                $.each(selectedJSON["data"], function (i, val) {
+                $.each(_selectedJSON["data"], function (i, val) {
                     try {
                         if (data[0] === val[0]) {
                             validate[0] = true;
@@ -408,45 +405,58 @@ $(document).ready(function () {
                 });
 
                 $('#genre-selector').modal({
-                    dismissible: false,
+                    dismissible: true,
                     ready: function (modal, trigger) {
                         tableObj.rows(index).deselect();
                         $(this).find("input[type='checkbox']").each(function () {
                             $(this).prop("checked", false);
                         });
+                        $(".rating ul li input[type='checkbox']").change(function () {
+                            $(".rating ul li input[type='checkbox']").each(function () {
+                                if ($(this).prop("checked") == true) {
+                                    $("#genre-agree").removeClass("disabled");
+                                    return false;
+                                } else {
+                                    $("#genre-agree").addClass("disabled");
+                                }
+                            });
+                        });
                         $("#rarity").val(25);
                         if (validate[0]) {
                             $(this).find(".modal-action").text("Done");
-                            var rs = selectedJSON["data"][validate[1]][2].split(", ");
+                            var rs = _selectedJSON["data"][validate[1]][2].split(", ");
                             $.each(rs, function (i, val) {
                                 $(`#${val}`).prop("checked", true);
                             });
-                            $("#rarity").val(selectedJSON["data"][validate[1]][3]);
+                            $("#rarity").val(_selectedJSON["data"][validate[1]][3]);
                         } else {
                             $(this).find(".modal-action").text("Agree");
                         }
                     },
                     complete: function () {
-                        var $so = [];
-
-                        if (validate[0]) selectedJSON["data"].splice(validate[1], 1);
-
-                        $so.push(data[0]);
-                        $so.push(data[1]);
-
-                        var levels = [];
-                        $(this).find("input[type='checkbox']").each(function () {
-                            if ($(this).prop("checked")) levels.push($(this).attr("id"));
-                        });
-                        if (levels.length === 0) levels.push("r5");
-                        $so.push(levels.join(", "));
-                        $so.push($("#rarity").val());
-
-                        selectedJSON["data"].push($so);
-
-                        prep.selectedJSON = selectedJSON;
-                        $(".pNext").removeClass("disabled");
+                        $("#genre-agree").addClass("disabled");
                     }
+                });
+                $("#genre-agree").off("click").on("click", function () {
+                    var $so = [];
+
+                    if (validate[0]) _selectedJSON["data"].splice(validate[1], 1);
+
+                    $so.push(data[0]);
+                    $so.push(data[1]);
+
+                    var levels = [];
+                    $('#genre-selector').find("input[type='checkbox']").each(function () {
+                        if ($(this).prop("checked")) levels.push($(this).attr("id"));
+                    });
+                    $so.push(levels.join(", "));
+                    $so.push($("#rarity").val());
+
+                    _selectedJSON["data"].push($so);
+
+                    prep.selectedJSON = _selectedJSON;
+                    $(".pNext").removeClass("disabled");
+                    $("#genre-agree").addClass("disabled");
                 });
                 $("#genre-selector").modal('open');
             }).on('deselect.dt', function (e, dt, type, index) {});
