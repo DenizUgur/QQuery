@@ -89,10 +89,6 @@ $(document).ready(function () {
         }
     }
 
-    $(".title").on("click", function () {
-        console.warn(_data);
-    });
-
     function changeText($el, ctnt) {
         var theLetters = "01"; //You can customize what letters it will cycle through
         var speed = 15; // ms per frame

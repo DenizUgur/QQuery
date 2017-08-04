@@ -67,7 +67,7 @@
           </div>
           <div class="col s3">
             <h5>Level of Questions</h5>
-            <div class="container left-align">
+            <div class="container left-align rating">
               <ul>
                 <li>
                   <input type="checkbox" id="r1" />
@@ -77,8 +77,10 @@
                   <input type="checkbox" id="r2" />
                   <label for="r2">&#11088;&#11088;</label>
                 </li>
-                <input type="checkbox" id="r3" />
-                <label for="r3">&#11088;&#11088;&#11088;</label>
+                <li>
+                  <input type="checkbox" id="r3" />
+                  <label for="r3">&#11088;&#11088;&#11088;</label>
+                </li>
                 <li>
                   <input type="checkbox" id="r4" />
                   <label for="r4">&#11088;&#11088;&#11088;&#11088;</label>
@@ -95,13 +97,13 @@
             </br>
             </br>
             <p class="range-field">
-              <input type="range" id="rarity" step="25" min="25" max="100" value="25"/>
+              <input type="range" id="rarity" step="25" min="25" max="100" value="25" />
             </p>
           </div>
         </div>
       </div>
       <div class="modal-footer">
-        <a href="#!" class="modal-action modal-close waves-effect waves-green btn-flat">Agree</a>
+        <a id="genre-agree" href="#!" class="modal-action modal-close waves-effect waves-green btn-flat disabled">Agree</a>
       </div>
     </div>
   </div>
